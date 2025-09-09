@@ -1,54 +1,50 @@
-AI-Powered Virtual Mouse Interface
-📌 Project Overview
-This project implements an AI-powered virtual mouse system that allows users to control a computer cursor using real-time hand gesture recognition and computer vision.
-By leveraging a webcam and machine learning techniques, the system enables touch-free, intuitive, and hygienic interaction with digital devices.
+# AI Powered Virtual Mouse (Windows)
 
-🎯 Key Features
+Use hand gestures to control mouse, scroll, drag & drop, image zoom/rotate/flip, system volume, and screen brightness using a webcam.
 
-Real-time hand tracking using MediaPipe and OpenCV.
-Detects 21 key hand landmarks for accurate gesture recognition.
-Supports gesture-based mouse control:
-Cursor movement
-Single-click, double-click
-Drag-and-drop
-Scrolling
-Multi-finger gestures
-Contactless operation — improves hygiene and accessibility.
-Works with any standard webcam — no special hardware required.
+## Requirements
+- Windows 10/11 (PowerShell)
+- Python 3.10–3.12 (64-bit recommended)
+- A webcam
 
-🛠️ Tech Stack
+## Install
+1. Create and activate a virtual environment (recommended):
+   - PowerShell:
+     ```powershell
+     python -m venv .venv
+     .venv\Scripts\Activate.ps1
+     ```
+2. Install dependencies:
+   ```powershell
+   pip install -r requirements.txt
+   ```
 
-Programming Language: Python
-Libraries & Frameworks:
-OpenCV – image processing
-MediaPipe – hand tracking
-PyAutoGUI – mouse control
-NumPy – numerical processing
+If `mediapipe` build fails on older Python, install Python 3.10–3.12.
 
+## Run
+```powershell
+python VirtualMouse.py
+```
+- Press `q` to quit.
 
-      
-🚀 Installation & Setup
+## Gestures
+- Move cursor: Raise only index finger and move.
+- Left click: Pinch index + thumb briefly (keep middle down).
+- Right click: Pinch middle + thumb when index is up.
+- Drag & drop: Keep index + thumb pinched to hold; release to drop.
+- Scroll: Raise index + middle; move up/down to scroll.
+- Zoom image: Change distance between index and thumb.
+- Rotate image: Rotate the vector between index and thumb.
+- Flip image: Raise only pinky (debounced toggle).
+- Volume: Raise only ring finger; move up to increase, down to decrease.
+- Brightness: Raise all fingers; move up to increase, down to decrease.
 
-1️⃣ Clone the repository: 
+Notes:
+- Volume control requires `pycaw`; if unavailable, it will be skipped.
+- Brightness control requires `screen-brightness-control`; if unavailable, it will be skipped.
+- A small demo image panel is shown in the top-left to visualize zoom/rotate/flip.
 
-git clone https://github.com/your-username/AI-Virtual-Mouse.git
-cd AI-Virtual-Mouse
-
-2️⃣ Install dependencies: 
-
-pip install -r requirements.txt
-
-3️⃣ Run the project: 
-python main.py
-
-🎮 How It Works
-The webcam captures the live video feed.
-MediaPipe detects 21 hand landmarks.
-Gesture recognition maps these landmarks to predefined gestures.
-PyAutoGUI converts gestures into mouse actions.
-The cursor moves or performs clicks/scrolls without physical contact.
-
-🏆 Acknowledgments
-MediaPipe
-OpenCV
-PyAutoGUI
+## Troubleshooting
+- If the mouse moves too fast or jittery, tune `SMOOTHING`, `CLICK_DIST_PX`, and `DRAG_DIST_PX` constants in `VirtualMouse.py`.
+- If brightness/volume do not change, they may require admin permissions or compatible hardware/drivers.
+- If your webcam opens but tracking is poor, ensure good lighting and keep your hand fully in frame.
